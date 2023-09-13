@@ -1,15 +1,29 @@
-import React, { useState } from 'react';
+// App.js
+import React from 'react';
+import AddExpense from './AddExpense';
 
-const AddExpense = ({ onAddExpense }) => {
-  // State to manage the expense form fields
+function App() {
+  return (
+    <div>
+      <h1>Expense Management App</h1>
+      <AddExpense />
+    </div>
+  );
+}
+
+export default App;
+// AddExpense.js
+import React, { useState } from 'react';
+import { TextField, Button, Grid, Container, Typography } from '@mui/material';
+
+function AddExpense() {
   const [expenseData, setExpenseData] = useState({
     date: '',
     category: '',
-    amount: 0,
+    amount: '',
     description: '',
   });
 
-  // Handle form input changes
   const handleInputChange = (e) => {
     const { name, value } = e.target;
     setExpenseData({
@@ -18,93 +32,81 @@ const AddExpense = ({ onAddExpense }) => {
     });
   };
 
-  // Handle form submission
-  const handleAddExpense = (e) => {
-    e.preventDefault();
-    // You can add additional validation here if needed
-
-    // Pass the expense data to the parent component or a function for further processing
-    onAddExpense(expenseData);
-
-    // Clear the form fields
-    setExpenseData({
-      date: '',
-      category: '',
-      amount: 0,
-      description: '',
-    });
+  const handleAddExpense = () => {
+    // You can implement logic to handle adding the expense data here
+    console.log('Expense data:', expenseData);
   };
 
   return (
-    <div>
-      <h2>Add Expense</h2>
-      <form onSubmit={handleAddExpense}>
-        <div>
-          <label>Date:</label>
-          <input
-            type="date"
-            name="date"
-            value={expenseData.date}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Category:</label>
-          <input
-            type="text"
-            name="category"
-            value={expenseData.category}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Amount:</label>
-          <input
-            type="number"
-            name="amount"
-            value={expenseData.amount}
-            onChange={handleInputChange}
-            required
-          />
-        </div>
-        <div>
-          <label>Description:</label>
-          <textarea
-            name="description"
-            value={expenseData.description}
-            onChange={handleInputChange}
-          />
-        </div>
-        <div>
-          <button type="submit">Add Expense</button>
-        </div>
+    <Container maxWidth="sm">
+      <Typography variant="h5" align="center" gutterBottom>
+        Add Expense
+      </Typography>
+      <form>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              type="date"
+              label="Date"
+              name="date"
+              value={expenseData.date}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              label="Category"
+              name="category"
+              value={expenseData.category}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              type="number"
+              label="Amount"
+              name="amount"
+              value={expenseData.amount}
+              onChange={handleInputChange}
+            />
+          </Grid>
+          <Grid item xs={12}>
+            <TextField
+              fullWidth
+              multiline
+              rows={4}
+              label="Description"
+              name="description"
+              value={expenseData.description}
+              onChange={handleInputChange}
+            />
+          </Grid>
+        </Grid>
+        <Button
+          variant="contained"
+          color="primary"
+          onClick={handleAddExpense}
+          fullWidth
+        >
+          Add Expense
+        </Button>
       </form>
-    </div>
-  );
-};
-
-export default AddExpense;
-
-import React from 'react';
-import ReactDOM from 'react-dom';
-import AddExpense from './AddExpense'; // Import the AddExpense component
-
-function App() {
-  // Function to handle adding an expense (you would implement this)
-  const handleAddExpense = (expenseData) => {
-    console.log('Expense added:', expenseData);
-    // You would typically send this data to a server or update your application state.
-  };
-
-  return (
-    <div>
-      <h1>Expense Management App</h1>
-      {/* Render the AddExpense component and pass the handleAddExpense function */}
-      <AddExpense onAddExpense={handleAddExpense} />
-    </div>
+    </Container>
   );
 }
 
-ReactDOM.render(<App />, document.getElementById('root')); // Replace 'root' with your root HTML element ID
+export default AddExpense;
+// index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+
+ReactDOM.render(
+  <React.StrictMode>
+    <App />
+  </React.StrictMode>,
+  document.getElementById('root')
+);
