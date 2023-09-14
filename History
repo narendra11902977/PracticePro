@@ -1,0 +1,71 @@
+// src/index.js
+import React from 'react';
+import ReactDOM from 'react-dom';
+import App from './App';
+import CssBaseline from '@material-ui/core/CssBaseline';
+import { ThemeProvider } from '@material-ui/core/styles';
+import theme from './theme'; // Import your Material-UI theme if you have one
+
+ReactDOM.render(
+  <React.StrictMode>
+    <ThemeProvider theme={theme}>
+      <CssBaseline />
+      <App />
+    </ThemeProvider>
+  </React.StrictMode>,
+  document.getElementById('root')
+);
+
+
+
+// src/App.js
+import React from 'react';
+import HistoryComponent from './HistoryComponent';
+
+function App() {
+  // Sample data for testing the HistoryComponent
+  const historyData = [
+    {
+      reportName: 'Report 1',
+      lastEdited: '2023-09-14',
+      managerComments: 'Approved',
+      processingStatus: 'Approved',
+    },
+    {
+      reportName: 'Report 2',
+      lastEdited: '2023-09-13',
+      managerComments: 'Needs revisions',
+      processingStatus: 'Rejected',
+    },
+  ];
+
+  return (
+    <div className="App">
+      <h1>History Reports</h1>
+      {historyData.map((data, index) => (
+        <HistoryComponent key={index} {...data} />
+      ))}
+    </div>
+  );
+}
+
+export default App;
+
+
+import React from 'react';
+import Paper from '@material-ui/core/Paper';
+import Typography from '@material-ui/core/Typography';
+
+const HistoryComponent = ({ reportName, lastEdited, managerComments, processingStatus }) => {
+  return (
+    <Paper elevation={3} style={{ padding: '20px', marginBottom: '20px' }}>
+      <Typography variant="h6">{reportName}</Typography>
+      <Typography variant="subtitle2">Last Edited On: {lastEdited}</Typography>
+      <Typography variant="body1">Manager Comments: {managerComments}</Typography>
+      <Typography variant="body2">Processing Status: {processingStatus}</Typography>
+    </Paper>
+  );
+};
+
+export default HistoryComponent;
+
