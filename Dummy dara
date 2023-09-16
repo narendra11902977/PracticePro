@@ -1,1 +1,18 @@
 
+| report_id | business_purpose          | employee_comment    | employee_status | manager_comment  | manager_id | report_date | report_name | status    | transaction_currency |
+|----------|---------------------------|---------------------|-----------------|------------------|------------|------------|-------------|-----------|-----------------------|
+| 1001     | Sales Conference          | Travel expenses    | Active          | -                | 201        | 2023-09-01 | Expense001  | Pending   | USD                   |
+| 1002     | Client Dinner             | Client meeting     | Active          | Great job!       | 202        | 2023-09-02 | Expense002  | Approved  | EUR                   |
+| 1003     | Office Supplies           | Office supplies    | Non-Active      | -                | 203        | 2023-09-03 | Expense003  | Pending   | GBP                   |
+| 1004     | Training Seminar          | Skill development  | Active          | Looks good!      | 204        | 2023-09-04 | Expense004  | Approved  | USD                   |
+| 1005     | Business Trip             | Sales meetings     | Active          | -                | 205        | 2023-09-05 | Expense005  | Pending   | CAD                   |
+| 1006     | Team Lunch                | Team building      | Non-Active      | Not approved     | 206        | 2023-09-06 | Expense006  | Rejected  | USD                   |
+| 1007     | Marketing Campaign        | Advertising costs | Active          | -                | 207        | 2023-09-07 | Expense007  | Pending   | EUR                   |
+| 1008     | Office Equipment Upgrade  | IT equipment       | Active          | Approved         | 208        | 2023-09-08 | Expense008  | Approved  | USD                   |
+| 1009     | Remote Work Accessories   | Work from home     | Active          | -                | 209        | 2023-09-09 | Expense009  | Pending   | USD                   |
+| 1010     | Trade Show Exhibition     | Booth rental       | Active          | Looks good!      | 210        | 2023-09-10 | Expense010  | Approved  | EUR                   |
+| 1011     | Office Internet           | Monthly internet   | Active          | -                | 211        | 2023-09-11 | Expense011  | Pending   | USD                   |
+| 1012     | Marketing Materials       | Promo materials    | Active          | Great work!      | 212        | 2023-09-12 | Expense012  | Approved  | GBP                   |
+| 1013     | Client Meeting            | Client meeting     | Non-Active      | -                | 213        | 2023-09-13 | Expense013  | Pending   | EUR                   |
+| 1014     | Software Subscription     | Software license   | Active          | Approved         | 214        | 2023-09-14 | Expense014  | Approved  | USD                   |
+| 1015     | Office Renovation         | Office upgrade     | Active          | -                | 215        | 2023-09-15 | Expense015  | Pending   | GBP                   |
