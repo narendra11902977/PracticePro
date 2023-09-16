@@ -16,3 +16,24 @@
 | 1013     | Client Meeting            | Client meeting     | Non-Active      | -                | 213        | 2023-09-13 | Expense013  | Pending   | EUR                   |
 | 1014     | Software Subscription     | Software license   | Active          | Approved         | 214        | 2023-09-14 | Expense014  | Approved  | USD                   |
 | 1015     | Office Renovation         | Office upgrade     | Active          | -                | 215        | 2023-09-15 | Expense015  | Pending   | GBP                   |
+
+
+
+| receipt_id | amount  | employee_comment     | manager_approval | manager_comment  | transaction_date | type          | report_id |
+|------------|---------|----------------------|------------------|------------------|------------------|---------------|-----------|
+| 2001       | 500.00  | Dinner with clients | Pending          | Reviewing this. | 2023-09-01       | Meal          | 1001      |
+| 2002       | 1000.00 | Office Supplies     | Accepted         | Approved         | 2023-09-02       | Supplies      | 1003      |
+| 2003       | 300.00  | Training Materials   | Rejected         | Not justified    | 2023-09-03       | Training      | 1004      |
+| 2004       | 800.00  | Business Travel     | Pending          | Looking into it. | 2023-09-04       | Travel        | 1005      |
+| 2005       | 50.00   | Team Lunch           | Accepted         | Great choice!    | 2023-09-05       | Meal          | 1006      |
+| 2006       | 400.00  | Marketing Campaign   | Accepted         | Looks good!      | 2023-09-06       | Marketing     | 1007      |
+| 2007       | 2000.00 | Laptop Purchase      | Pending          | Under review.    | 2023-09-07       | Equipment     | 1008      |
+| 2008       | 150.00  | Remote Work Supplies | Rejected         | Not needed       | 2023-09-08       | Supplies      | 1009      |
+| 2009       | 750.00  | Conference Fees      | Accepted         | Approved         | 2023-09-09       | Conference    | 1010      |
+| 2010       | 1200.00 | Office Internet      | Pending          | Checking details.| 2023-09-10       | Utilities     | 1011      |
+| 2011       | 300.00  | Marketing Materials  | Accepted         | Good choice!     | 2023-09-11       | Marketing     | 1012      |
+| 2012       | 80.00   | Client Meeting       | Rejected         | Not approved     | 2023-09-12       | Meeting       | 1013      |
+| 2013       | 600.00  | Software License     | Accepted         | Approved         | 2023-09-13       | Software      | 1014      |
+| 2014       | 2500.00 | Office Renovation    | Pending          | Evaluating cost. | 2023-09-14       | Renovation    | 1015      |
+| 2015       | 150.00  | Taxi for Meetings    | Accepted         | Approved         | 2023-09-15       | Transportation | 1001      |
+
