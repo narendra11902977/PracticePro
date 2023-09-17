@@ -65,3 +65,27 @@ function handleFileUpload(event) {
       console.error(error);
     });
 }
+
+
+
+
+
+
+import axios from 'axios';
+
+const backendURL = 'http://localhost:8080'; // Replace with your backend URL
+
+const FileUploadService = {
+  uploadFile: (file) => {
+    const formData = new FormData();
+    formData.append('file', file);
+
+    return axios.post(`${backendURL}/upload`, formData)
+      .then(response => response.data)
+      .catch(error => {
+        throw error;
+      });
+  },
+};
+
+export default FileUploadService;
