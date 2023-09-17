@@ -89,3 +89,45 @@ const FileUploadService = {
 };
 
 export default FileUploadService;
+
+
+
+
+import React, { useState } from 'react';
+import FileUploadService from './FileUploadService';
+
+function FileUploadComponent() {
+  const [file, setFile] = useState(null);
+  const [message, setMessage] = useState('');
+
+  const handleFileUpload = (event) => {
+    const selectedFile = event.target.files[0];
+    setFile(selectedFile);
+  };
+
+  const uploadFile = () => {
+    if (file) {
+      FileUploadService.uploadFile(file)
+        .then(response => {
+          // Handle the response from the server
+          setMessage(response.data);
+        })
+        .catch(error => {
+          // Handle any errors
+          setMessage('File upload failed.');
+          console.error(error);
+        });
+    }
+  };
+
+  return (
+    <div>
+      <h2>Upload File</h2>
+      <input type="file" onChange={handleFileUpload} />
+      <button onClick={uploadFile}>Upload</button>
+      {message && <p>{message}</p>}
+    </div>
+  );
+}
+
+export default FileUploadComponent;
