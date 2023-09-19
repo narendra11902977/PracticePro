@@ -1,0 +1,53 @@
+import React, { useState } from 'react';
+
+const App = () => {
+  // Sample dynamic data with a 'status' property
+  const dynamicData = [
+    { id: 1, name: 'Item 1', status: 'approved' },
+    { id: 2, name: 'Item 2', status: 'rejected' },
+    { id: 3, name: 'Item 3', status: 'pending' },
+    // Add more data here...
+  ];
+
+  const [filter, setFilter] = useState('all'); // Initial filter state
+
+  // Function to handle filter change
+  const handleFilterChange = (newFilter) => {
+    setFilter(newFilter);
+  };
+
+  // Filter the data based on the selected filter
+  const filteredData = dynamicData.filter((item) => {
+    if (filter === 'all') {
+      return true; // Show all items
+    } else {
+      return item.status === filter; // Show items with the selected status
+    }
+  });
+
+  return (
+    <div>
+      <h1>Filter Data by Status</h1>
+      <div>
+        <label>
+          Filter by Status:
+          <select onChange={(e) => handleFilterChange(e.target.value)}>
+            <option value="all">All</option>
+            <option value="approved">Approved</option>
+            <option value="rejected">Rejected</option>
+            <option value="pending">Pending</option>
+          </select>
+        </label>
+      </div>
+      <ul>
+        {filteredData.map((item) => (
+          <li key={item.id}>
+            {item.name} - Status: {item.status}
+          </li>
+        ))}
+      </ul>
+    </div>
+  );
+};
+
+export default App;
