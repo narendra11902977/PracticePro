@@ -1,6 +1,37 @@
-import React, { useState } from 'react';
 
-const App = () => {
+import React from 'react';
+
+const TableHeaderComponent = ({ onFilterChange }) => {
+  const handleFilterChange = (e) => {
+    const selectedFilter = e.target.value;
+    onFilterChange(selectedFilter);
+  };
+
+  return (
+    <div>
+      <label>
+        Filter by Status:
+        <select onChange={handleFilterChange}>
+          <option value="all">All</option>
+          <option value="approved">Approved</option>
+          <option value="rejected">Rejected</option>
+          <option value="pending">Pending</option>
+        </select>
+      </label>
+    </div>
+  );
+};
+
+export default TableHeaderComponent;
+
+
+
+
+
+import React, { useState } from 'react';
+import TableHeaderComponent from './TableHeaderComponent'; // Import your child component here
+
+const TableDataComponent = () => {
   // Sample dynamic data with a 'status' property
   const dynamicData = [
     { id: 1, name: 'Item 1', status: 'approved' },
@@ -11,7 +42,7 @@ const App = () => {
 
   const [filter, setFilter] = useState('all'); // Initial filter state
 
-  // Function to handle filter change
+  // Function to handle filter change from child component
   const handleFilterChange = (newFilter) => {
     setFilter(newFilter);
   };
@@ -28,17 +59,7 @@ const App = () => {
   return (
     <div>
       <h1>Filter Data by Status</h1>
-      <div>
-        <label>
-          Filter by Status:
-          <select onChange={(e) => handleFilterChange(e.target.value)}>
-            <option value="all">All</option>
-            <option value="approved">Approved</option>
-            <option value="rejected">Rejected</option>
-            <option value="pending">Pending</option>
-          </select>
-        </label>
-      </div>
+      <TableHeaderComponent onFilterChange={handleFilterChange} />
       <ul>
         {filteredData.map((item) => (
           <li key={item.id}>
@@ -50,4 +71,4 @@ const App = () => {
   );
 };
 
-export default App;
+export default TableDataComponent;
