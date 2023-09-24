@@ -40,3 +40,80 @@ public class ReportServiceImplTest {
         assertEquals(mockReportList, result);
     }
 }
+
+
+
+
+
+
+
+
+
+import static org.mockito.Mockito.*;
+
+@RunWith(MockitoJUnitRunner.class)
+public class ReportServiceTest {
+
+    @InjectMocks
+    private ReportServiceImpl reportService;
+
+    @Mock
+    private EntityManager entityManager;
+
+    @Mock
+    private ReportRepository reportRepository;
+
+    @Test
+    public void testAddReportData_Success() {
+        // Prepare test data
+        Report report = new Report();
+        
+        // Mock the behavior of entityManager
+        when(entityManager.createNativeQuery(anyString())).thenReturn(mockNativeQuery());
+        when(mockNativeQuery().getSingleResult()).thenReturn(1L);
+
+        // Mock the behavior of reportRepository
+        when(reportRepository.save(any(Report.class))).thenReturn(report);
+        when(reportRepository.findById(1L)).thenReturn(Optional.of(report));
+
+        // Call the method to be tested
+        Report result = reportService.addReportData(report);
+
+        // Assertions
+        assertNotNull(result);
+        assertEquals(1L, result.getReportId().longValue());
+
+        // Verify that methods were called
+        verify(entityManager).createNativeQuery(anyString());
+        verify(reportRepository).save(any(Report.class));
+        verify(reportRepository).findById(1L);
+    }
+
+    @Test
+    public void testAddReportData_Failure() {
+        // Prepare test data
+        Report report = new Report();
+
+        // Mock the behavior of entityManager to return null
+        when(entityManager.createNativeQuery(anyString())).thenReturn(mockNativeQuery());
+        when(mockNativeQuery().getSingleResult()).thenReturn(null);
+
+        // Call the method to be tested
+        Report result = reportService.addReportData(report);
+
+        // Assertions
+        assertNull(result);
+
+        // Verify that methods were called
+        verify(entityManager).createNativeQuery(anyString());
+        // Verify that reportRepository.save() and reportRepository.findById() were not called
+        verify(reportRepository, never()).save(any(Report.class));
+        verify(reportRepository, never()).findById(anyLong());
+    }
+
+    // Helper method to create a mock NativeQuery
+    private NativeQuery mockNativeQuery() {
+        return mock(NativeQuery.class);
+    }
+}
+
