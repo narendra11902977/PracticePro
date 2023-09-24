@@ -1,0 +1,42 @@
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
+import org.mockito.InjectMocks;
+import org.mockito.Mock;
+import org.mockito.MockitoAnnotations;
+import static org.mockito.Mockito.*;
+import java.util.Arrays;
+import java.util.List;
+import static org.junit.jupiter.api.Assertions.*;
+
+public class ReportServiceImplTest {
+
+    @InjectMocks
+    private ReportServiceImpl reportService;
+
+    @Mock
+    private ReportRepository reportRepository;
+
+    @BeforeEach
+    public void setUp() {
+        MockitoAnnotations.initMocks(this);
+    }
+
+    @Test
+    public void testGetReportDataBasedOnEmpId() {
+        // Define a sample empId and a list of reports
+        String empId = "123";
+        List<Report> mockReportList = Arrays.asList(new Report(), new Report());
+
+        // Mock the behavior of the reportRepository.findByEmployeeId method
+        when(reportRepository.findByEmployeeId(empId)).thenReturn(mockReportList);
+
+        // Call the service method
+        List<Report> result = reportService.getReportDataBasedOnEmpId(empId);
+
+        // Verify that the method was called with the correct empId
+        verify(reportRepository, times(1)).findByEmployeeId(empId);
+
+        // Verify that the result matches the mocked list of reports
+        assertEquals(mockReportList, result);
+    }
+}
