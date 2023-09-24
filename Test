@@ -1,18 +1,14 @@
 @Test
-    public void testGetReportsByEmployeeIdAndEmployeeStatus() {
-        // Define a sample employee ID, employee status, and a list of reports
-        String employeeId = "123456";
-        String employeeStatus = "Active";
-        List<Report> reports = new ArrayList<>();
-        reports.add(new Report(1, "Report 1", employeeId, employeeStatus));
-        reports.add(new Report(2, "Report 2", employeeId, employeeStatus));
-
-        // Configure the mock repository to return the sample reports when findByEmployeeIdAndEmployeeStatus is called
-        when(reportRepository.findByEmployeeIdAndEmployeeStatus(employeeId, employeeStatus)).thenReturn(reports);
+    public void testDeleteReportsByReportId() {
+        // Define a sample report ID
+        Long reportId = 1L;
 
         // Call the service method
-        List<Report> result = reportService.getReportsByEmployeeIdAndEmployeeStatus(employeeId, employeeStatus);
+        String result = reportService.deleteReportsByReportId(reportId);
 
-        // Verify that the method returned the expected list of reports
-        assertEquals(reports, result);
+        // Verify that the method returned the expected message
+        assertEquals("Deleted Successfully", result);
+
+        // Verify that the delete method was called on the mock repository with the expected report ID
+        verify(reportRepository).deleteById(reportId);
     }
