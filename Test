@@ -1,41 +1,18 @@
-import static org.junit.Assert.assertEquals;
-import static org.mockito.Mockito.*;
-
-import java.util.ArrayList;
-import java.util.List;
-
-import org.junit.Before;
-import org.junit.Test;
-
-public class ReportServiceTest {
-
-    private ReportService reportService;
-    private ReportRepository reportRepository;
-
-    @Before
-    public void setUp() {
-        // Create a mock of the ReportRepository
-        reportRepository = mock(ReportRepository.class);
-
-        // Inject the mock repository into the ReportService
-        reportService = new ReportService(reportRepository);
-    }
-
-    @Test
+@Test
     public void testGetCountByStatusForYear() {
-        // Define a sample year and a list of ManagerGraphResponse objects
+        // Define a sample year and a list of report counts by status
         Integer year = 2023;
-        List<ManagerGraphResponse> managerResponses = new ArrayList<>();
-        managerResponses.add(new ManagerGraphResponse("Manager 1", 10));
-        managerResponses.add(new ManagerGraphResponse("Manager 2", 5));
+        List<ManagerGraphResponse> managerGraphResponses = new ArrayList<>();
+        managerGraphResponses.add(new ManagerGraphResponse("Active", 10));
+        managerGraphResponses.add(new ManagerGraphResponse("Inactive", 5));
 
-        // Configure the mock repository to return the sample ManagerGraphResponse objects when getCountByStatusForYear is called
-        when(reportRepository.getCountByStatusForYear(year)).thenReturn(managerResponses);
+        // Configure the mock repository to return the sample report counts by status when getCountByStatusForYear is called
+        when(reportRepository.getCountByStatusForYear(year)).thenReturn(managerGraphResponses);
 
         // Call the service method
         List<ManagerGraphResponse> result = reportService.getCountByStatusForYear(year);
 
-        // Verify that the method returned the expected list of ManagerGraphResponse objects
-        assertEquals(managerResponses, result);
+        // Verify that the method returned the expected list of report counts by status
+        assertEquals(managerGraphResponses, result);
     }
 }
