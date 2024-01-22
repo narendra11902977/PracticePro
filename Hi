@@ -1,8 +1,8 @@
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestHeader;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
@@ -12,16 +12,17 @@ import org.springframework.web.client.RestTemplate;
 public class AuthenticationController {
 
     private static final String AUTH_API_URL = "https://your-authentication-api-url";
+    private static final String HARDCODED_USERNAME = "naren";
+    private static final String HARDCODED_PASSWORD = "hello";
 
-    @PostMapping
-    public ResponseEntity<String> authenticate(@RequestBody AuthRequest authRequest) {
-        HttpHeaders headers = createHeaders(authRequest.getUsername(), authRequest.getPassword());
+    @GetMapping
+    public ResponseEntity<String> authenticate() {
+        HttpHeaders headers = createHeaders(HARDCODED_USERNAME, HARDCODED_PASSWORD);
         RestTemplate restTemplate = new RestTemplate();
 
         try {
-            ResponseEntity<String> response = restTemplate.postForEntity(
+            ResponseEntity<String> response = restTemplate.getForEntity(
                     AUTH_API_URL,
-                    headers,
                     String.class
             );
             return new ResponseEntity<>(response.getBody(), HttpStatus.OK);
@@ -37,29 +38,5 @@ public class AuthenticationController {
             String authHeader = "Basic " + new String(encodedAuth);
             set("Authorization", authHeader);
         }};
-    }
-
-    // Class representing the authentication request body
-    static class AuthRequest {
-        private String username;
-        private String password;
-
-        // Getters and setters
-
-        public String getUsername() {
-            return username;
-        }
-
-        public void setUsername(String username) {
-            this.username = username;
-        }
-
-        public String getPassword() {
-            return password;
-        }
-
-        public void setPassword(String password) {
-            this.password = password;
-        }
     }
 }
