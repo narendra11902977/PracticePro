@@ -1,63 +1,53 @@
+package com.example.demo.controller;
+
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/api")
-public class AuthController {
+public class SimpleController {
 
     @GetMapping("/hello")
     public String hello() {
-        return "Hello, secured user!";
+        return "Hello, authenticated user!";
     }
 }
 
 
 
+package com.example.demo.config;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 import org.springframework.security.core.userdetails.User;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.provisioning.InMemoryUserDetailsManager;
-import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 @EnableWebSecurity
-@Order(1)
-public class SecurityConfig {
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Override
+    protected void configure(HttpSecurity http) throws Exception {
+        http
+            .authorizeRequests()
+                .anyRequest().authenticated()
+            .and()
+            .httpBasic();
+    }
 
     @Bean
+    @Override
     public UserDetailsService userDetailsService() {
-        InMemoryUserDetailsManager manager = new InMemoryUserDetailsManager();
-        manager.createUser(User.withDefaultPasswordEncoder().username("user").password("password").roles("USER").build());
-        return manager;
-    }
+        UserDetails user = User.withDefaultPasswordEncoder()
+                .username("user")
+                .password("password")
+                .roles("USER")
+                .build();
 
-    @Bean
-    public UsernamePasswordAuthenticationFilter basicAuthenticationFilter() throws Exception {
-        return new BasicAuthenticationFilter();
-    }
-
-    @Bean
-    public SecurityConfigurerAdapter basicAuthConfigurerAdapter() {
-        return new SecurityConfigurerAdapter();
-    }
-
-    @Configuration
-    public static class SecurityConfigurerAdapter extends SecurityConfigurerAdapter<DefaultSecurityFilterChain, HttpSecurity> {
-
-        @Override
-        public void configure(HttpSecurity http) throws Exception {
-            http.addFilterBefore(basicAuthenticationFilter(), UsernamePasswordAuthenticationFilter.class)
-                .authorizeRequests()
-                .antMatchers("/api/hello").authenticated()
-                .anyRequest().permitAll()
-                .and().httpBasic()
-                .and().csrf().disable();
-        }
+        return new InMemoryUserDetailsManager(user);
     }
 }
